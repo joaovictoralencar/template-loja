@@ -2,20 +2,20 @@
   <nav class="nav">
     <div class="logo">
       <nuxt-link :to="{ name: 'index' }" class="logo text-lg">
-        Nuxt Fundamentals
+        Makeup Market
       </nuxt-link>
-      <span class="subheader">A Vue School course</span>
+      <span class="subheader">O importante é se sentir bem</span>
     </div>
     <nuxt-link
       v-if="!$auth.loggedIn"
       :to="{ name: 'login' }"
-      class="login text-base"
+      class="login text-xs"
     >
-      You're not logged. Please, Login.
+      Você ainda não está logado(a). Por favor, faça login.
     </nuxt-link>
     <div v-else>
       <p>Olá, {{ $auth.user.email }}</p>
-      <button @click="logout" class="btn text-base">
+      <button @click="logout" class="button--grey text-base">
         Logout
       </button>
     </div>

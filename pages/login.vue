@@ -1,54 +1,72 @@
 <template>
-  <div class="login-form">
-    <div v-if="!signin">
-      <h1>Login Form</h1>
-      <form @submit.prevent="login()">
+  <div class="container-form">
+    <div v-if="!signin" class="login">
+      <h1>Faça Login</h1>
+      <form @submit.prevent="login()" class="form">
         <input
-          v-model="loginInfo.email"
+          v-model="email"
+          class="input-label"
           type="text"
           name="email"
           placeholder="Username"
           required
         >
         <input
-          v-model="loginInfo.password"
+          v-model="password"
+          class="input-label"
           type="password"
           name="password"
           placeholder="Password"
           required
         >
-        <input type="submit">
+        <input type="submit" class="button--grey" value="Logar">
       </form>
-      <p>
-        <button @click="toggleRegistration" class="btn">
-          Não tem uma conta ainda? Cadastre-se aqui.
-        </button>
-      </p>
+      <button @click="toggleRegistration" class="button--grey">
+        Não tem uma conta? Cadastre-se aqui.
+      </button>
     </div>
-    <div v-else>
-      <h1>Sign In Form</h1>
-      <form @submit.prevent="registration()">
+    <div v-else class="signin">
+      <h1>Preencha seus dados</h1>
+      <form @submit.prevent="registration()" class="form">
         <!-- <form v-if="!$store.state.authUser" @submit.prevent="login"> -->
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="text" name="username" placeholder="Username" required>
         <input
+          v-model="username"
+          class="input-label"
+          type="text"
+          name="username"
+          placeholder="Fulano123"
+          required
+        >
+        <input
+          v-model="email"
+          class="input-label"
+
+          type="text"
+          name="email"
+          placeholder="email@email.com"
+          required
+        >
+        <input
+          v-model="password"
+          class="input-label"
           type="password"
           name="password"
           placeholder="Password"
           required
         >
-        <input class="submit" type="submit">
+        <input type="submit" class="button--grey">
       </form>
       <p>
-        <!-- <button class="btn" @click="toggleRegistration">
+        <button @click="toggleRegistration" class="button--grey">
           Voltar para o login
-        </button>-->
+        </button>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-console */
 export default {
   head () {
     return {
@@ -64,27 +82,46 @@ export default {
   data () {
     return {
       signin: false,
-      loginInfo: {
-        email: '',
-        password: ''
-      }
+      username: '',
+      email: '',
+      password: ''
+
     }
   },
   methods: {
-    login () {
-      this.$auth.loginWith('local', {
-        data: this.loginInfo
-      })
-    },
-    async logout () {
+    async login () {
       try {
-        await this.$store.dispatch('logout')
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+        this.email = ''
+        this.password = ''
       } catch (e) {
-        alert(e.message)
+        console.log('error', e.response.data.message)
       }
     },
-    registration () {
-      alert('You are cadastrando')
+    async registration () {
+      try {
+        await this.$axios.post('users/register', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+        this.username = ''
+        this.email = ''
+        this.password = ''
+      } catch (e) {
+        console.log('error', e.response.data.message)
+      }
     },
     toggleRegistration () {
       this.signin = !this.signin
@@ -93,4 +130,32 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.login {
+  h1 {
+    text-align: center;
+  }
+}
+.form{
+  background-color:#377086;
+  padding: 50px;
+  margin: 30px 0;
+  border-radius: 5px;
+  width: 332px;
+}
+.form,
+.container-form, .login, .signin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input-label{
+  height: 30px;
+  margin: 10px 0;
+  width: 100%;
+}
+.button--grey {
+  margin: 0 0 10px 0;
+}
+</style>

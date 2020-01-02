@@ -3,9 +3,11 @@ const users = express.Router()
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+// const bodyParser = require('body-parser')
 
 const User = require('../models/User')
 users.use(cors())
+// users.use(bodyParser.urlencoded({ extended: false }))
 
 users.post('/register', (req, res) => {
   const today = new Date()
@@ -23,7 +25,7 @@ users.post('/register', (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        bcrypt.hash(req.body.password, 10, (_erro, hash) => {
+        bcrypt.hash(req.body.password, 10, (erro, hash) => {
           userData.password = hash
           User.create(userData)
             .then((user) => {
@@ -60,6 +62,7 @@ users.post('/login', (req, res) => {
             expiresIn: 1440
           })
           res.send({
+            user,
             token: JWTtoken
           })
         } else {
@@ -80,4 +83,12 @@ users.post('/login', (req, res) => {
     })
 })
 
+// users.get('/users/user', (req, res, next) => {
+//   res.json({ user: req.user })
+// })
+
+// users.use((err, req, res, next) => {
+//   console.error(err) // eslint-disable-line no-console
+//   res.status(401).send(err + '')
+// })
 module.exports = users

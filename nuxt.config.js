@@ -8,27 +8,31 @@ module.exports = {
   },
   head: {
     title: process.env.npm_package_name || '',
-    meta: [{
-      charset: 'utf-8'
-    },
-    {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1'
-    },
-    {
-      hid: 'description',
-      name: 'description',
-      content: process.env.npm_package_description || ''
-    }
+    meta: [
+      {
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: process.env.npm_package_description || ''
+      }
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }]
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      }
+    ]
   },
   server: {
-    port: 8000 // default: 3000
+    port: 8000, // default: 3000
+    host: 'localhost'
   },
   /*
    ** Customize the progress-bar color
@@ -39,9 +43,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [
-    '@/assets/styles/style.scss'
-  ],
+  css: ['@/assets/styles/style.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -87,8 +89,12 @@ module.exports = {
             method: 'post',
             propertyName: 'token'
           },
-          logout: { url: '/users/logout', method: 'delete' },
-          user: false
+          logout: { url: '/users/logout', method: 'delete' }
+          // user: {
+          //   url: '/users/user',
+          //   method: 'get',
+          //   propertyName: 'user'
+          // }
         },
         // tokenRequired: true,
         tokenType: ''

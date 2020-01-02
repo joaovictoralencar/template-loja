@@ -3,10 +3,10 @@
     <div>
       <logo />
       <h1 class="title">
-        nuxt-fundamentals
+        Template Loja
       </h1>
       <h2 class="subtitle">
-        My gnarly Nuxt.js project
+        Home Page
       </h2>
       <div class="links">
         <nuxt-link
@@ -56,7 +56,7 @@ export default {
 }
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
