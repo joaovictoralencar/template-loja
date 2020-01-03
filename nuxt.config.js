@@ -30,10 +30,6 @@ module.exports = {
       }
     ]
   },
-  server: {
-    port: 8000, // default: 3000
-    host: 'localhost'
-  },
   /*
    ** Customize the progress-bar color
    */
@@ -87,14 +83,17 @@ module.exports = {
           login: {
             url: '/users/login',
             method: 'post',
-            propertyName: 'token'
+            propertyName: 'token.accessToken'
           },
-          logout: { url: '/users/logout', method: 'delete' }
-          // user: {
-          //   url: '/users/user',
-          //   method: 'get',
-          //   propertyName: 'user'
-          // }
+          logout: {
+            url: '/users/logout',
+            method: 'delete'
+          },
+          user: {
+            url: '/users/user',
+            method: 'get',
+            propertyName: 'user'
+          }
         },
         // tokenRequired: true,
         tokenType: ''

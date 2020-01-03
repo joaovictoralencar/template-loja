@@ -3,7 +3,7 @@ const db = {}
 const sequelize = new Sequelize('loja', 'root', 'admin', {
   host: 'localhost',
   dialect: 'mysql',
-  operatorsAliases: false,
+  operatorsAliases: 0,
   port: 3306,
 
   pool: {

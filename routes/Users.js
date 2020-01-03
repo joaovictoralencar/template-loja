@@ -1,13 +1,26 @@
+/* eslint-disable no-console */
 const express = require('express')
 const users = express.Router()
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-// const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 
 const User = require('../models/User')
 users.use(cors())
 // users.use(bodyParser.urlencoded({ extended: false }))
+
+// Install middleware
+users.use(bodyParser.json())
+
+// // JWT middleware
+// users.use(
+//   jwt({
+//     secret: process.env.SECRET_KEY
+//   }).unless({
+//     path: '/users/login'
+//   })
+// )
 
 users.post('/register', (req, res) => {
   const today = new Date()
@@ -58,12 +71,13 @@ users.post('/login', (req, res) => {
       if (user) {
         const correctPass = bcrypt.compareSync(req.body.password, user.password)
         if (correctPass) {
-          const JWTtoken = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-            expiresIn: 1440
-          })
+          const accessToken = jwt.sign(
+            user.dataValues,
+            process.env.SECRET_KEY,
+            { expiresIn: 1440 }
+          )
           res.send({
-            user,
-            token: JWTtoken
+            token: { accessToken }
           })
         } else {
           res.status(400).json({
@@ -83,12 +97,9 @@ users.post('/login', (req, res) => {
     })
 })
 
-// users.get('/users/user', (req, res, next) => {
-//   res.json({ user: req.user })
-// })
+users.get('/user', (req, res) => {
+  console.log(req.user)
+  res.json({ user: 'teste' })
+})
 
-// users.use((err, req, res, next) => {
-//   console.error(err) // eslint-disable-line no-console
-//   res.status(401).send(err + '')
-// })
 module.exports = users

@@ -14,7 +14,7 @@
       Você ainda não está logado(a). Por favor, faça login.
     </nuxt-link>
     <div v-else>
-      <p>Olá, {{ $auth.user.email }}</p>
+      <p>Olá, {{ $auth.user }}</p>
       <button @click="logout" class="button--grey text-base">
         Logout
       </button>
