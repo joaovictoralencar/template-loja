@@ -100,7 +100,7 @@ export default {
         this.email = ''
         this.password = ''
       } catch (e) {
-        console.log('error', e.response.data.message)
+        console.error('error', e.response.data.message)
       }
     },
     async registration () {
@@ -120,7 +120,7 @@ export default {
         this.email = ''
         this.password = ''
       } catch (e) {
-        console.log('error', e.response.data.message)
+        console.error(e.response.data.message)
       }
     },
     toggleRegistration () {

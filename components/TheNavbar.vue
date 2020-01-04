@@ -6,18 +6,20 @@
       </nuxt-link>
       <span class="subheader">O importante é se sentir bem</span>
     </div>
-    <nuxt-link
-      v-if="!$auth.loggedIn"
-      :to="{ name: 'login' }"
-      class="login text-xs"
-    >
-      Você ainda não está logado(a). Por favor, faça login.
-    </nuxt-link>
-    <div v-else>
-      <p>Olá, {{ $auth.user }}</p>
-      <button @click="logout" class="button--grey text-base">
-        Logout
-      </button>
+    <div v-if="$auth">
+      <nuxt-link
+        v-if="!$auth.loggedIn"
+        :to="{ name: 'login' }"
+        class="login text-xs"
+      >
+        Você ainda não está logado(a). Por favor, faça login.
+      </nuxt-link>
+      <div v-else>
+        <p>Olá, {{ $auth.user.username }}</p>
+        <button @click="logout" class="button--grey text-base">
+          Logout
+        </button>
+      </div>
     </div>
   </nav>
 </template>

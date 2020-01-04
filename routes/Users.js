@@ -1,26 +1,17 @@
-/* eslint-disable no-console */
 const express = require('express')
 const users = express.Router()
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 const User = require('../models/User')
 users.use(cors())
-// users.use(bodyParser.urlencoded({ extended: false }))
+users.use(cookieParser())
 
 // Install middleware
 users.use(bodyParser.json())
-
-// // JWT middleware
-// users.use(
-//   jwt({
-//     secret: process.env.SECRET_KEY
-//   }).unless({
-//     path: '/users/login'
-//   })
-// )
 
 users.post('/register', (req, res) => {
   const today = new Date()
@@ -98,8 +89,15 @@ users.post('/login', (req, res) => {
 })
 
 users.get('/user', (req, res) => {
-  console.log(req.user)
-  res.json({ user: 'teste' })
+  jwt.verify(req.cookies['auth._token.local'], process.env.SECRET_KEY, function (err, decoded) {
+    if (err) {
+      res.status(400).json({
+        error: 'Algo errado com o token'
+      })
+    } else {
+      res.json({ user: decoded })
+    }
+  })
 })
 
 module.exports = users
