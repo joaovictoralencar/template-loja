@@ -4,9 +4,9 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const Users = require('../routes/Users')
-// Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
+const Users = require('./routes/Users')
+// Import and Set Nuxt.js options
 config.dev = process.env.NODE_ENV !== 'production'
 require('dotenv').config()
 
