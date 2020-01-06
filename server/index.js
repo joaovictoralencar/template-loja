@@ -6,6 +6,8 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const config = require('../nuxt.config.js')
 const Users = require('./routes/Users')
+const Products = require('./routes/Products')
+
 // Import and Set Nuxt.js options
 config.dev = process.env.NODE_ENV !== 'production'
 require('dotenv').config()
@@ -31,6 +33,7 @@ async function start () {
     })
   )
   app.use('/users', Users)
+  app.use('/products', Products)
   // Give nuxt middleware to express
   app.use(nuxt.render)
 
