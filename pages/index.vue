@@ -10,12 +10,12 @@
       </h2>
       <div class="links">
         <nuxt-link
-          v-for="post in posts"
-          :key="post.id"
-          :to="{ name: 'posts-id', params: { id: post.id } }"
+          v-for="product in products"
+          :key="product.id"
+          :to="{ name: 'products-id', params: { id: product.id } }"
           class="button--grey"
         >
-          {{ post.title }}
+          {{ product.name }}
         </nuxt-link>
       </div>
     </div>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+
 import Logo from '~/components/Logo.vue'
 export default {
   components: {
@@ -40,10 +42,28 @@ export default {
     }
   },
   computed: {
-    posts () {
-      return this.$store.state.posts.all
+    products () {
+      return this.$store.state.products.all
     }
+  },
+  async fetch ({ store }) {
+    // dispatch action fetchAllProducts
+    await store.dispatch('products/fetchAllProducts')
   }
+  // mounted () {
+  //   this.getProducts()
+  // },
+  // methods: {
+  //   async getProducts () {
+  //     try {
+  //       await this.$axios.get('products/all').then((response) => {
+  //         console.log(response.data.products)
+  //       })
+  //     } catch (e) {
+  //       console.error(e.response.data.message)
+  //     }
+  //   }
+  // }
 }
 </script>
 

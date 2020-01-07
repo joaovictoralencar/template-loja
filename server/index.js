@@ -32,8 +32,8 @@ async function start () {
       extended: false
     })
   )
-  app.use('/users', Users)
-  app.use('/products', Products)
+  app.use('/api/users', Users)
+  app.use('/api/products', Products)
   // Give nuxt middleware to express
   app.use(nuxt.render)
 

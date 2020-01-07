@@ -43,7 +43,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -81,16 +81,16 @@ module.exports = {
       local: {
         endpoints: {
           login: {
-            url: '/users/login',
+            url: '/api/users/login',
             method: 'post',
             propertyName: 'token.accessToken'
           },
           logout: {
-            url: '/users/logout',
+            url: '/api/users/logout',
             method: 'delete'
           },
           user: {
-            url: '/users/user',
+            url: '/api/users/user',
             method: 'get',
             propertyName: 'user'
           }

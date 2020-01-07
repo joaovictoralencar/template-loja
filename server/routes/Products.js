@@ -27,8 +27,15 @@ products.post('/register', (req, res) => {
       res.send('erro: ' + erro)
     })
 })
+products.get('/all', (req, res) => {
+  Product.findAll().then((products) => {
+    res.status(200).send({
+      products
+    })
+  })
+})
 
-products.get('/product/:id', (req, res) => {
+products.get('/:id', (req, res) => {
   const productId = req.params.id
   Product.findOne({
     where: {
