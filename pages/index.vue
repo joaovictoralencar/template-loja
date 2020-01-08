@@ -3,10 +3,10 @@
     <div>
       <logo />
       <h1 class="title">
-        Template Loja
+        Market Makeup
       </h1>
       <h2 class="subtitle">
-        Home Page
+        Conheça nossos produtos
       </h2>
       <div class="links">
         <nuxt-link
@@ -50,20 +50,6 @@ export default {
     // dispatch action fetchAllProducts
     await store.dispatch('products/fetchAllProducts')
   }
-  // mounted () {
-  //   this.getProducts()
-  // },
-  // methods: {
-  //   async getProducts () {
-  //     try {
-  //       await this.$axios.get('products/all').then((response) => {
-  //         console.log(response.data.products)
-  //       })
-  //     } catch (e) {
-  //       console.error(e.response.data.message)
-  //     }
-  //   }
-  // }
 }
 </script>
 

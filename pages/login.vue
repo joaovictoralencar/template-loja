@@ -28,7 +28,6 @@
     <div v-else class="signin">
       <h1>Preencha seus dados</h1>
       <form @submit.prevent="registration()" class="form">
-        <!-- <form v-if="!$store.state.authUser" @submit.prevent="login"> -->
         <input
           v-model="username"
           class="input-label"
@@ -105,7 +104,7 @@ export default {
     },
     async registration () {
       try {
-        await this.$axios.post('users/register', {
+        await this.$axios.post('api/users/register', {
           username: this.username,
           email: this.email,
           password: this.password

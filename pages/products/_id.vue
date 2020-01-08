@@ -4,6 +4,7 @@
       <h1 class="title">
         {{ product.name }}
       </h1>
+      <p>R$: {{ product.price }}</p>
       <p>{{ product.description }}</p>
     </article>
     <aside v-if="relatedProducts.length > 0">
@@ -56,6 +57,7 @@ export default {
   display: flex;
   justify-content: space-between;
   line-height: 1.5;
+  padding: 1rem;
 }
 article * {
   margin-bottom: 1rem;

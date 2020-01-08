@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .button--green {
   display: inline-block;
   border-radius: 4px;

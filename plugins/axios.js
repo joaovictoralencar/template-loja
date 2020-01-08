@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export default function ({ $axios }) {
   $axios.setHeader('AUTHORISATION', 'Bearer ln123ncoimokmsdfoi')
   $axios.onRequest((config) => {
