@@ -48,4 +48,26 @@ products.get('/:id', (req, res) => {
   })
 })
 
+products.patch('/:id/edit', (req, res) => {
+  const productId = req.params.id
+  const name = req.body.name
+  const description = req.body.description
+  const price = req.body.price
+  if (name) {
+    Product.update({ name, where: { id: productId } }).then(() => {
+      res.status(200).send('Nome alterado: ' + name)
+    })
+  }
+  if (description) {
+    Product.update({ description, where: { id: productId } }).then(() => {
+      res.status(200).send('Descrição alterada')
+    })
+  }
+  if (price) {
+    Product.update({ price, where: { id: productId } }).then(() => {
+      res.status(200).send('Preço alterado: ' + price)
+    })
+  }
+})
+
 module.exports = products

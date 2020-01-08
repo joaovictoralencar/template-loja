@@ -1,23 +1,21 @@
 <template>
   <section class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        Market Makeup
-      </h1>
-      <h2 class="subtitle">
-        Conheça nossos produtos
-      </h2>
-      <div class="links">
-        <nuxt-link
-          v-for="product in products"
-          :key="product.id"
-          :to="{ name: 'products-id', params: { id: product.id } }"
-          class="button--grey"
-        >
-          {{ product.name }}
-        </nuxt-link>
-      </div>
+    <logo />
+    <h1 class="title">
+      Market Makeup
+    </h1>
+    <h2 class="subtitle">
+      Conheça nossos produtos
+    </h2>
+    <div class="links">
+      <nuxt-link
+        v-for="product in products"
+        :key="product.id"
+        :to="{ name: 'products-id', params: { id: product.id } }"
+        class="button--grey"
+      >
+        {{ product.name }}
+      </nuxt-link>
     </div>
   </section>
 </template>
@@ -26,6 +24,7 @@
 /* eslint-disable no-console */
 
 import Logo from '~/components/Logo.vue'
+
 export default {
   components: {
     Logo

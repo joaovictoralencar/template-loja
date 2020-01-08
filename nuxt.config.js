@@ -87,7 +87,8 @@ module.exports = {
           },
           logout: {
             url: '/api/users/logout',
-            method: 'delete'
+            method: 'delete',
+            propertyName: false
           },
           user: {
             url: '/api/users/user',

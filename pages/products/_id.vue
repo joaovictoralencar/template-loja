@@ -24,9 +24,9 @@
 export default {
   head () {
     return {
-      title: this.product.title,
+      title: this.product.name,
       meta: [
-        { name: 'twitter:title', content: this.product.title },
+        { name: 'twitter:title', content: this.product.name },
         { name: 'twitter:description', content: this.product.content },
         { name: 'twitter:image', content: 'https://i.imgur.com/UYP2umJ.png' },
         { name: 'twitter:card', content: 'summary_large_image' }

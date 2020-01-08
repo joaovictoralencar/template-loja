@@ -1,5 +1,5 @@
 <template>
-  <div class="container-content">
+  <div class="container">
     <h1>Preencha com os dados do produto</h1>
     <form @submit.prevent="registration()" class="form">
       <input

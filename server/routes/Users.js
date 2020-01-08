@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express')
 const users = express.Router()
 const cors = require('cors')
@@ -100,4 +101,52 @@ users.get('/user', (req, res) => {
   })
 })
 
+users.delete('/logout', (req, res) => {
+  req.stauts(200)
+})
+
+users.patch('/user/edit', (req, res) => {
+  const userEmail = jwt.verify(
+    req.cookies['auth._token.local'],
+    process.env.SECRET_KEY,
+    function (err, decoded) {
+      if (err) {
+        res.status(400).json({
+          error: 'Algo errado com o token'
+        })
+      } else {
+        return decoded.email
+      }
+    }
+  )
+  console.log(userEmail)
+  const username = req.body.username
+  let password = req.body.password
+  const email = req.body.email
+  const lastLogin = req.body.last_login
+
+  if (username) {
+    User.update({ username, where: { email: userEmail } }).then(() => {
+      res.status(200).send('Username alterado: ' + username)
+    })
+  }
+  if (password) {
+    bcrypt.hash(password, 10, (erro, hash) => {
+      password = hash
+    })
+    User.update({ password, where: { email: userEmail } }).then(() => {
+      res.status(200).send('Senha alterada')
+    })
+  }
+  if (email) {
+    User.update({ email, where: { email: userEmail } }).then(() => {
+      res.status(200).send('E-mail alterado: ' + email)
+    })
+  }
+  if (lastLogin) {
+    User.update({ email, where: { email: userEmail } }).then(() => {
+      res.status(200)
+    })
+  }
+})
 module.exports = users

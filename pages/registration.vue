@@ -1,6 +1,6 @@
 <template>
   <div class="container-form">
-    <Form :labels="labels" :submitFunction="login" :formTitle="'Faça Login'" :submitText="'Login'" />
+    <Form :labels="labels" :submit="registration" :formTitle="'Faça Login'" />
   </div>
 </template>
 
@@ -25,30 +25,32 @@ export default {
   },
   data () {
     return {
-      email: '',
-      password: '',
       labels: [
+        { title: 'Nome', name: 'name', type: 'text', placeholder: 'Fulano', required: true },
         { title: 'E-mail', name: 'email', type: 'text', placeholder: 'fulano@gmail.com', required: true },
         { title: 'Senha', name: 'password', type: 'password', placeholder: '*******', required: true }
       ]
     }
   },
   methods: {
-    async login () {
+    async registration () {
       try {
+        await this.$axios.post('api/users/register', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
         await this.$auth.loginWith('local', {
           data: {
             email: this.email,
             password: this.password
           }
         })
+        this.username = ''
         this.email = ''
         this.password = ''
-        await this.$axios.patch('api/users/user/edit', {
-          last_login: Date.now()
-        })
       } catch (e) {
-        console.error('error', e.response.data.message)
+        console.error(e.response.data.message)
       }
     }
   }
