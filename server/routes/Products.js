@@ -11,31 +11,37 @@ products.use(bodyParser.json())
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '/assets')
+    cb(null, './assets/images/products')
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname + '-' + Date.now())
+    cb(null, file.originalname)
   }
 })
 
-products.post('/register', multer({ storage }).single('filePath'), async (req, res) => {
-  const filePath = `${req.file.destination}/${req.file.filename}`
-  const productData = {
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    filePath
-  }
-  await Product.create(productData)
-    .then((product) => {
-      res.json({
-        status: product.name + ' Registered!'
+products.post(
+  '/register',
+  multer({ storage }).single('filePath'),
+  (req, res) => {
+    const path = req.file.destination.replace('./', '')
+    const filePath = `${path}/${Date.now()}-${req.file.filename}`
+    console.log(filePath)
+    const productData = {
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      filePath
+    }
+    Product.create(productData)
+      .then((product) => {
+        res.json({
+          status: product.name + ' Registered!'
+        })
       })
-    })
-    .catch((erro) => {
-      res.send('erro: ' + erro)
-    })
-})
+      .catch((erro) => {
+        res.send('erro: ' + erro)
+      })
+  }
+)
 products.get('/all', (req, res) => {
   Product.findAll().then((products) => {
     res.status(200).send({

@@ -59,10 +59,10 @@ export default {
       }
     },
     updateEmail (e) {
-      this.email = e
+      this.email = e.target.value
     },
     updatePassword (e) {
-      this.password = e
+      this.password = e.target.value
     }
   }
 }

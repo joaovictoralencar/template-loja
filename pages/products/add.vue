@@ -23,15 +23,15 @@ export default {
   },
   data () {
     return {
-      name: '',
-      description: '',
-      price: 0,
-      filePath: '',
+      name: 'produto',
+      description: 'mt bom',
+      price: 600,
+      filePath: {},
       labels: [
-        { title: 'Nome', name: 'name', type: 'text', placeholder: 'Super produto', required: true },
-        { title: 'Preço', name: 'price', type: 'number', placeholder: '99.99', required: true },
+        { title: 'Nome', name: 'name', type: 'text', placeholder: 'Super produto', required: false },
+        { title: 'Preço', name: 'price', type: 'number', placeholder: '99.99', required: false },
         { title: 'Descrição', name: 'description', type: 'text', placeholder: 'Super descrição', required: false },
-        { title: 'Imagem do Produto', name: 'password', type: 'file', placeholder: 'produto.png', required: false }
+        { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false }
       ]
     }
   },
@@ -39,16 +39,16 @@ export default {
     async registration () {
       try {
         console.log(this.filePath)
-        await this.$axios.post('api/products/register', {
-          name: this.name,
-          description: this.description,
-          price: this.price,
-          filePath: this.filePath
-        })
+        const formData = new FormData()
+        formData.append('filePath', this.filePath)
+        formData.append('name', this.name)
+        formData.append('price', this.price)
+        formData.append('description', this.description)
+        await this.$axios.post('api/products/register', formData)
         this.name = ''
         this.description = ''
         this.price = 0
-        this.filePath = ''
+        this.filePath = {}
       } catch (e) {
         console.error(e.response.data.message)
       }

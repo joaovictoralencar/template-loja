@@ -1,19 +1,20 @@
 <template>
   <div>
     <h1>{{ formTitle }}</h1>
-    <form @submit.prevent="submitFunction" class="form" enctype="multipart/form-data">
+    <form @submit.prevent="submitFunction" enctype="multipart/form-data" class="form">
       <div v-for="label in labels" :key="label.name" class="input-label">
         {{ label.title || label.name }}:
         <input
           v-model="label.bind"
-          @input="showInfo($event, label.name)"
+          @input="showInfo($event, label.name, label.type)"
           :type="label.type"
           :name="label.name"
           :placeholder="label.placeholder || ''"
           :required="label.required || false"
+          :ref="label.name"
         >
       </div>
-      <input type="submit" class="button--grey" like="Logar">
+      <input :like="submitText" type="submit" class="button--grey">
     </form>
   </div>
 </template>
@@ -44,8 +45,11 @@ export default {
     }
   },
   methods: {
-    showInfo (event, labelName) {
-      this.$emit(labelName + '-listener', event.target.value)
+    showInfo (event, labelName, labelType) {
+      if (labelType !== 'file') { this.$emit(labelName + '-listener', event.target.value) } else {
+        const file = this.$refs[labelName][0].files[0]
+        this.$emit(labelName + '-listener', file)
+      }
     }
   }
 }
@@ -60,7 +64,7 @@ h1 {
   padding: 40px;
   margin: 30px 0;
   border-radius: 5px;
-  width: 360px;
+  width: auto;
 }
 .form,
 .container-form,
@@ -74,6 +78,7 @@ h1 {
 .input-label {
   input {
     height: 30px;
+    width: 100%;
   }
   margin: 10px 0;
   width: 100%;

@@ -23,10 +23,3 @@ module.exports = db.sequelize.define('products', {
     allowNull: true
   }
 })
-
-/*
-
-alter table products
-add column filePath varchar(255);
-
-*/

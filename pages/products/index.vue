@@ -8,6 +8,7 @@
         class="button--grey"
       >
         {{ product.name }}
+        <img v-if="product.filePath" :src="product.filePath" :alt="'uma foto de ' + product.name" class="product-image">
       </nuxt-link>
     </div>
   </div>

@@ -5,6 +5,10 @@
         {{ product.name }}
       </h1>
       <p>R$: {{ product.price }}</p>
+      <figure v-if="product.filePath">
+        <img :src="product.filePath" :alt="'uma foto de ' + product.name" class="product-image">
+        <figcaption>{{ product.name }}</figcaption>
+      </figure>
       <p>{{ product.description }}</p>
     </article>
     <aside v-if="relatedProducts.length > 0">
