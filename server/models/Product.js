@@ -17,5 +17,16 @@ module.exports = db.sequelize.define('products', {
     type: Sequelize.TEXT,
     allowNull: true,
     defaultValue: null
+  },
+  filePath: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 })
+
+/*
+
+alter table products
+add column filePath varchar(255);
+
+*/

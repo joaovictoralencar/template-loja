@@ -1,6 +1,13 @@
 <template>
   <div class="container-form">
-    <Form :labels="labels" :submitFunction="login" :formTitle="'Faça Login'" :submitText="'Login'" />
+    <Form
+      :labels="labels"
+      :submitFunction="login"
+      :formTitle="'Faça Login'"
+      :submitText="'Login'"
+      @email-listener="updateEmail"
+      @password-listener="updatePassword"
+    />
   </div>
 </template>
 
@@ -50,6 +57,12 @@ export default {
       } catch (e) {
         console.error('error', e.response.data.message)
       }
+    },
+    updateEmail (e) {
+      this.email = e
+    },
+    updatePassword (e) {
+      this.password = e
     }
   }
 }

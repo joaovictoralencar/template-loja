@@ -102,7 +102,7 @@ users.get('/user', (req, res) => {
 })
 
 users.delete('/logout', (req, res) => {
-  req.stauts(200)
+  res.status(200).send('OK')
 })
 
 users.patch('/user/edit', (req, res) => {
@@ -126,7 +126,7 @@ users.patch('/user/edit', (req, res) => {
   const lastLogin = req.body.last_login
 
   if (username) {
-    User.update({ username, where: { email: userEmail } }).then(() => {
+    User.update({ username }, { where: { email: userEmail } }).then(() => {
       res.status(200).send('Username alterado: ' + username)
     })
   }
@@ -134,17 +134,17 @@ users.patch('/user/edit', (req, res) => {
     bcrypt.hash(password, 10, (erro, hash) => {
       password = hash
     })
-    User.update({ password, where: { email: userEmail } }).then(() => {
+    User.update({ password }, { where: { email: userEmail } }).then(() => {
       res.status(200).send('Senha alterada')
     })
   }
   if (email) {
-    User.update({ email, where: { email: userEmail } }).then(() => {
+    User.update({ email }, { where: { email: userEmail } }).then(() => {
       res.status(200).send('E-mail alterado: ' + email)
     })
   }
   if (lastLogin) {
-    User.update({ email, where: { email: userEmail } }).then(() => {
+    User.update({ lastLogin }, { where: { email: userEmail } }).then(() => {
       res.status(200)
     })
   }

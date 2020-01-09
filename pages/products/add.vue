@@ -1,61 +1,69 @@
 <template>
   <div class="container">
-    <h1>Preencha com os dados do produto</h1>
-    <form @submit.prevent="registration()" class="form">
-      <input
-        v-model="name"
-        class="input-label"
-        type="text"
-        name="name"
-        placeholder="Makeup"
-        required
-      >
-      <input
-        v-model="description"
-        class="input-label"
-        type="text"
-        name="description"
-        placeholder="A super cool product"
-        required
-      >
-      <input
-        v-model="price"
-        class="input-label"
-        type="number"
-        name="price"
-        placeholder="199.99"
-        required
-      >
-      <input type="submit" class="button--grey">
-    </form>
+    <Form
+      :labels="labels"
+      :submitFunction="registration"
+      :formTitle="'Adicione seu produto'"
+      :submitText="'Adicionar'"
+      @name-listener="updateName"
+      @price-listener="updatePrice"
+      @description-listener="updateDescription"
+      @filePath-listener="updateFilePath"
+    />
   </div>
 </template>
 
 <script>
 /* eslint-disable no-console */
+import Form from '~/components/Form.vue'
 
 export default {
+  components: {
+    Form
+  },
   data () {
     return {
       name: '',
       description: '',
-      price: ''
+      price: 0,
+      filePath: '',
+      labels: [
+        { title: 'Nome', name: 'name', type: 'text', placeholder: 'Super produto', required: true },
+        { title: 'Preço', name: 'price', type: 'number', placeholder: '99.99', required: true },
+        { title: 'Descrição', name: 'description', type: 'text', placeholder: 'Super descrição', required: false },
+        { title: 'Imagem do Produto', name: 'password', type: 'file', placeholder: 'produto.png', required: false }
+      ]
     }
   },
   methods: {
     async registration () {
       try {
+        console.log(this.filePath)
         await this.$axios.post('api/products/register', {
           name: this.name,
           description: this.description,
-          price: this.price
+          price: this.price,
+          filePath: this.filePath
         })
         this.name = ''
         this.description = ''
-        this.price = ''
+        this.price = 0
+        this.filePath = ''
       } catch (e) {
         console.error(e.response.data.message)
       }
+    },
+    updateName (e) {
+      this.name = e
+    },
+    updatePrice (e) {
+      this.price = e
+    },
+    updateDescription (e) {
+      this.description = e
+    },
+    updateFilePath (e) {
+      this.filePath = e
     }
   }
 }

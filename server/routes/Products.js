@@ -3,21 +3,30 @@ const products = express.Router()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-
+const multer = require('multer')
 const Product = require('../models/Product')
 products.use(cors())
 products.use(cookieParser())
-
-// Install middleware
 products.use(bodyParser.json())
 
-products.post('/register', (req, res) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '/assets')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname + '-' + Date.now())
+  }
+})
+
+products.post('/register', multer({ storage }).single('filePath'), async (req, res) => {
+  const filePath = `${req.file.destination}/${req.file.filename}`
   const productData = {
     name: req.body.name,
     description: req.body.description,
-    price: req.body.price
+    price: req.body.price,
+    filePath
   }
-  Product.create(productData)
+  await Product.create(productData)
     .then((product) => {
       res.json({
         status: product.name + ' Registered!'
@@ -54,17 +63,17 @@ products.patch('/:id/edit', (req, res) => {
   const description = req.body.description
   const price = req.body.price
   if (name) {
-    Product.update({ name, where: { id: productId } }).then(() => {
+    Product.update({ name }, { where: { id: productId } }).then(() => {
       res.status(200).send('Nome alterado: ' + name)
     })
   }
   if (description) {
-    Product.update({ description, where: { id: productId } }).then(() => {
+    Product.update({ description }, { where: { id: productId } }).then(() => {
       res.status(200).send('Descrição alterada')
     })
   }
   if (price) {
-    Product.update({ price, where: { id: productId } }).then(() => {
+    Product.update({ price }, { where: { id: productId } }).then(() => {
       res.status(200).send('Preço alterado: ' + price)
     })
   }

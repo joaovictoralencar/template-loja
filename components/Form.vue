@@ -1,12 +1,12 @@
 <template>
   <div>
     <h1>{{ formTitle }}</h1>
-    <form @submit.prevent="submitFunction" class="form">
-      <div v-for="label in labels" class="input-label">
+    <form @submit.prevent="submitFunction" class="form" enctype="multipart/form-data">
+      <div v-for="label in labels" :key="label.name" class="input-label">
         {{ label.title || label.name }}:
         <input
           v-model="label.bind"
-          @input="showInfo($event)"
+          @input="showInfo($event, label.name)"
           :type="label.type"
           :name="label.name"
           :placeholder="label.placeholder || ''"
@@ -44,9 +44,8 @@ export default {
     }
   },
   methods: {
-    showInfo (event) {
-      console.log(event.target.value)
-      this.$emit('input-change', event.target.value)
+    showInfo (event, labelName) {
+      this.$emit(labelName + '-listener', event.target.value)
     }
   }
 }
