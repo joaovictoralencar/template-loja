@@ -7,16 +7,15 @@
     <h2 class="subtitle">
       Conheça nossos produtos
     </h2>
-    <div class="links">
+    <section class="links">
       <nuxt-link
         v-for="product in products"
         :key="product.id"
         :to="{ name: 'products-id', params: { id: product.id } }"
-        class="button--grey"
       >
-        {{ product.name }}
+        <product-view :product="product" />
       </nuxt-link>
-    </div>
+    </section>
   </section>
 </template>
 
@@ -24,10 +23,12 @@
 /* eslint-disable no-console */
 
 import Logo from '~/components/Logo.vue'
+import ProductView from '~/components/ProductView.vue'
 
 export default {
   components: {
-    Logo
+    Logo,
+    ProductView
   },
   head () {
     return {
@@ -75,5 +76,8 @@ export default {
 }
 .links {
   padding-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>

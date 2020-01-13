@@ -1,17 +1,18 @@
 <template>
-  <div>
-    <div class="links">
+  <section class="links">
+    <article
+      v-for="product in products"
+      :key="product.id"
+    >
       <nuxt-link
-        v-for="product in products"
-        :key="product.id"
         :to="{ name: 'products-id', params: { id: product.id } }"
         class="button--grey"
       >
         {{ product.name }}
-        <img v-if="product.filePath" :src="product.filePath" :alt="'uma foto de ' + product.name" class="product-image">
+        <img v-if="product.filePath" :alt="'uma foto de ' + product.name" :src="product.filePath" class="product-image">
       </nuxt-link>
-    </div>
-  </div>
+    </article>
+  </section>
 </template>
 
 <script>

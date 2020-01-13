@@ -1,12 +1,18 @@
 <template>
-  <div>
-    <h1>{{ formTitle }}</h1>
+  <div class="form-container">
+    <h1 class="form-title">
+      {{ formTitle }}
+    </h1>
     <form @submit.prevent="submitFunction" enctype="multipart/form-data" class="form">
       <div v-for="label in labels" :key="label.name" class="input-label">
-        {{ label.title || label.name }}:
+        <label :ref="label.title" :for="label.name" class="input-title">
+          {{ label.title || label.name }}:
+        </label>
         <input
           v-model="label.bind"
           @input="showInfo($event, label.name, label.type)"
+          @focus="paintInputOnFocus(label.title)"
+          @blur="paintInputOnBlur(label.title)"
           :type="label.type"
           :name="label.name"
           :placeholder="label.placeholder || ''"
@@ -14,7 +20,7 @@
           :ref="label.name"
         >
       </div>
-      <input :like="submitText" type="submit" class="button--grey">
+      <input :like="submitText" type="submit" class="input-submit">
     </form>
   </div>
 </template>
@@ -50,6 +56,12 @@ export default {
         const file = this.$refs[labelName][0].files[0]
         this.$emit(labelName + '-listener', file)
       }
+    },
+    paintInputOnFocus (labelTitle) {
+      this.$refs[labelTitle][0].classList.add('focus')
+    },
+    paintInputOnBlur (labelTitle) {
+      this.$refs[labelTitle][0].classList.remove('focus')
     }
   }
 }
@@ -60,30 +72,68 @@ h1 {
   text-align: center;
 }
 .form {
-  background-color: #377086;
-  padding: 40px;
   margin: 30px 0;
   border-radius: 5px;
-  width: auto;
-}
-.form,
-.container-form,
-.login,
-.signin {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
-.input-label {
-  input {
-    height: 30px;
-    width: 100%;
+.form-container {
+  min-width: 520px;
+  width: auto;
+  .input-label {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100% !important;
+    margin: 0.5rem 0;
+    color: #FC44AC;
+    input {
+      width: 100%;
+      height: 30px;
+      border: 0;
+      outline: 0;
+      border-bottom: 2px solid #FC44AC;
+      background-color: #fdf3f3 !important;
+      padding: 5px;
+    }
+    input[type='file']{
+      display: flex;
+      align-items: flex-end;
+    }
+    .input-title{
+      height: 30px;
+      border: 0;
+      outline: 0;
+      border-bottom: 2px solid #FC44AC;
+      background-color: #fdf3f3;
+      padding-right: 1rem;
+      &.focus{
+        border-color: #C705C4;
+      }
+    }
+    input:focus {
+      border-color: #C705C4;
+      outline: 1px dotted #000;
+      outline-offset: -2px;
+    }
   }
-  margin: 10px 0;
-  width: 100%;
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #fdf3f3 inset;
 }
-.button--grey {
-  margin: 0 0 10px 0;
+  .input-submit {
+    margin: 1rem 0 0 0;
+    background-image: linear-gradient(#FC008F, #C705C4);
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    color: white;
+    &:hover{
+      cursor: pointer;
+    }
+  }
 }
+
 </style>

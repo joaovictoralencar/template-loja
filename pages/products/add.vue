@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <section class="container">
     <Form
       :labels="labels"
       :submitFunction="registration"
@@ -10,7 +10,7 @@
       @description-listener="updateDescription"
       @filePath-listener="updateFilePath"
     />
-  </div>
+  </section>
 </template>
 
 <script>

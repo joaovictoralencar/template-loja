@@ -1,5 +1,5 @@
 <template>
-  <div class="container-form">
+  <section>
     <Form
       :labels="labels"
       :submitFunction="login"
@@ -8,7 +8,7 @@
       @email-listener="updateEmail"
       @password-listener="updatePassword"
     />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
       email: '',
       password: '',
       labels: [
-        { title: 'E-mail', name: 'email', type: 'text', placeholder: 'fulano@gmail.com', required: true },
+        { title: 'Email', name: 'email', type: 'text', placeholder: 'fulano@gmail.com', required: true },
         { title: 'Senha', name: 'password', type: 'password', placeholder: '*******', required: true }
       ]
     }
@@ -59,10 +59,10 @@ export default {
       }
     },
     updateEmail (e) {
-      this.email = e.target.value
+      this.email = e
     },
     updatePassword (e) {
-      this.password = e.target.value
+      this.password = e
     }
   }
 }

@@ -11,7 +11,7 @@ products.use(bodyParser.json())
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'assets/images/products')
+    cb(null, 'static/images/products')
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname)
@@ -22,7 +22,7 @@ products.post(
   '/register',
   multer({ storage }).single('filePath'),
   (req, res) => {
-    const path = req.file.destination
+    const path = req.file.destination.replace('static/', '/')
     const filePath = `${path}/${req.file.filename}`
     const productData = {
       name: req.body.name,

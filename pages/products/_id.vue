@@ -1,9 +1,11 @@
 <template>
-  <div class="container">
+  <section class="container">
     <article>
-      <h1 class="title">
-        {{ product.name }}
-      </h1>
+      <header>
+        <h1 class="title">
+          {{ product.name }}
+        </h1>
+      </header>
       <p>R$: {{ product.price }}</p>
       <figure v-if="product.filePath">
         <img :src="product.filePath" :alt="'uma foto de ' + product.name" class="product-image">
@@ -21,7 +23,7 @@
         </li>
       </ul>
     </aside>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -58,10 +60,10 @@ export default {
 
 <style scoped>
 .container {
+  margin: 1rem !important;
   display: flex;
   justify-content: space-between;
   line-height: 1.5;
-  padding: 1rem;
 }
 article * {
   margin-bottom: 1rem;

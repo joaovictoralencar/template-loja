@@ -1,7 +1,7 @@
 <template>
-  <div class="container-form">
+  <section class="container-form">
     <Form :labels="labels" :submit="registration" :formTitle="'Faça Login'" />
-  </div>
+  </section>
 </template>
 
 <script>

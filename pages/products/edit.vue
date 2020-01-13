@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <section>
     editar
-  </div>
+  </section>
 </template>
 
 <script>

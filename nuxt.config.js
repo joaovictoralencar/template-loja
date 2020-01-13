@@ -8,6 +8,7 @@ module.exports = {
   },
   head: {
     title: process.env.npm_package_name || '',
+    lang: 'pt-br',
     meta: [
       {
         charset: 'utf-8'
