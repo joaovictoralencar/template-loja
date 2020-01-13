@@ -8,6 +8,11 @@
 <script>
 import TheNavbar from '@/components/TheNavbar'
 export default {
+  head () {
+    return {
+      title: 'Market Makeup'
+    }
+  },
   components: {
     TheNavbar
   }

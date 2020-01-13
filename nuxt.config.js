@@ -37,10 +37,13 @@ module.exports = {
   loading: {
     color: '#fff'
   },
+  styleResources: {
+    scss: ['@/assets/styles/style.scss', '@/assets/styles/variables.scss']
+  },
   /*
    ** Global CSS
    */
-  css: ['@/assets/styles/style.scss'],
+  css: [],
   /*
    ** Plugins to load before mounting the App
    */
@@ -61,7 +64,8 @@ module.exports = {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/style-resources'
   ],
   /*
    ** Axios module configuration

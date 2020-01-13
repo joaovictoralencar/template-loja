@@ -1,21 +1,18 @@
 <template>
   <section class="links">
-    <article
+    <nuxt-link
       v-for="product in products"
       :key="product.id"
+      :to="{ name: 'products-id', params: { id: product.id } }"
     >
-      <nuxt-link
-        :to="{ name: 'products-id', params: { id: product.id } }"
-        class="button--grey"
-      >
-        {{ product.name }}
-        <img v-if="product.filePath" :alt="'uma foto de ' + product.name" :src="product.filePath" class="product-image">
-      </nuxt-link>
-    </article>
+      <product-view :product="product" />
+    </nuxt-link>
   </section>
 </template>
 
 <script>
+import ProductView from '~/components/ProductView.vue'
+
 export default {
   head () {
     return {
@@ -27,6 +24,9 @@ export default {
         { name: 'twitter:card', content: 'summary_large_image' }
       ]
     }
+  },
+  components: {
+    ProductView
   },
   computed: {
     products () {
@@ -41,5 +41,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.links {
+  padding-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 </style>

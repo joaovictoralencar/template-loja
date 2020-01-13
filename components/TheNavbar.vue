@@ -91,7 +91,7 @@ nav {
     align-items: center;
     width: 100%;
     padding: 0.5rem;
-    background-color: rgb(29, 129, 192);
+    background-color: $purple;
   }
 }
 .nav .logo {

@@ -30,7 +30,7 @@ export default {
       labels: [
         { title: 'Nome', name: 'name', type: 'text', placeholder: 'Super produto', required: false },
         { title: 'Preço', name: 'price', type: 'number', placeholder: '99.99', required: false },
-        { title: 'Descrição', name: 'description', type: 'text', placeholder: 'Super descrição', required: false },
+        { title: 'Descrição', name: 'description', type: 'text-area', placeholder: 'Super descrição', required: false },
         { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false }
       ]
     }
@@ -71,7 +71,6 @@ export default {
 
 <style scoped lang="scss">
 .form{
-  background-color:#377086;
   padding: 50px;
   margin: 30px 0;
   border-radius: 5px;

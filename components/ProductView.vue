@@ -39,10 +39,10 @@ export default {
 .product-container{
   padding: 1rem;
   .product-price {
-    color: green;
+    color: $product-price;
   }
   .product-image-container{
-    max-width: 300px;
+    max-width: 200px;
     .product-image{
       width: 100%;
     }

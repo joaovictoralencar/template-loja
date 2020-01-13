@@ -1,6 +1,6 @@
 <template>
-  <section class="container">
-    <article>
+  <section v-if="product" class="container product-id">
+    <article class="container">
       <header>
         <h1 class="title">
           {{ product.name }}
@@ -14,14 +14,18 @@
       <p>{{ product.description }}</p>
     </article>
     <aside v-if="relatedProducts.length > 0">
-      <h3>Products you might enjoy</h3>
-      <ul>
-        <li v-for="related in relatedProducts" :key="related.id">
-          <nuxt-link :to="{ name: 'products-id', params: { id: related.id } }">
-            {{ related.name }}
-          </nuxt-link>
-        </li>
-      </ul>
+      <article>
+        <header>
+          <h3>Products you might enjoy</h3>
+        </header>
+        <ul>
+          <li v-for="related in relatedProducts" :key="related.id">
+            <nuxt-link :to="{ name: 'products-id', params: { id: related.id } }">
+              {{ related.name }}
+            </nuxt-link>
+          </li>
+        </ul>
+      </article>
     </aside>
   </section>
 </template>
@@ -30,7 +34,7 @@
 export default {
   head () {
     return {
-      title: this.product.name,
+      title: this.product.name || 'teste',
       meta: [
         { name: 'twitter:title', content: this.product.name },
         { name: 'twitter:description', content: this.product.content },
@@ -53,17 +57,18 @@ export default {
     }
   },
   async fetch ({ store, params }) {
+    await store.dispatch('products/fetchAllProducts')
     await store.dispatch('products/fetchProduct', params.id)
   }
 }
 </script>
 
-<style scoped>
-.container {
-  margin: 1rem !important;
-  display: flex;
-  justify-content: space-between;
-  line-height: 1.5;
+<style lang="scss" scoped>
+.container{
+  position: relative;
+  &.product-id {
+    width: 100%;
+  }
 }
 article * {
   margin-bottom: 1rem;
@@ -72,8 +77,12 @@ aside {
   min-width: 280px;
   max-width: 280px;
   padding-left: 2rem;
+  position: absolute;
+  right: 0%;
+  top: 0%;
 }
 .title {
   font-size: 2rem;
 }
+
 </style>
