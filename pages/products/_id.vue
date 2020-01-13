@@ -6,7 +6,9 @@
           {{ product.name }}
         </h1>
       </header>
-      <p>R$: {{ product.price }}</p>
+      <p class="product-price">
+        R$: {{ product.price }}
+      </p>
       <figure v-if="product.filePath">
         <img :src="product.filePath" :alt="'uma foto de ' + product.name" class="product-image">
         <figcaption>{{ product.name }}</figcaption>
@@ -16,11 +18,11 @@
     <aside v-if="relatedProducts.length > 0">
       <article>
         <header>
-          <h3>Products you might enjoy</h3>
+          <h3>Produtos que você pode gostar</h3>
         </header>
         <ul>
           <li v-for="related in relatedProducts" :key="related.id">
-            <nuxt-link :to="{ name: 'products-id', params: { id: related.id } }">
+            <nuxt-link :to="{ name: 'products-id', params: { id: related.id } }" class="product-list-item">
               {{ related.name }}
             </nuxt-link>
           </li>
@@ -84,5 +86,7 @@ aside {
 .title {
   font-size: 2rem;
 }
-
+.product-list-item{
+  color: $purple;
+}
 </style>

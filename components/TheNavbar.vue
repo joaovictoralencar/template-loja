@@ -71,20 +71,19 @@ export default {
 
 <style scoped lang="scss">
 nav {
-  margin-bottom: 70px;
+margin-bottom: 40px;
   font-weight: lighter;
   letter-spacing: 0.5px;
   /* position: fixed;
   top: 0; */
   width: 100%;
-  background-color: #112F41;
   .top-side {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 1rem;
-    background-color: #112F41;
+    background-color: $pink;
   }
   .bottom-side {
     display: flex;
@@ -100,9 +99,8 @@ nav {
   justify-content: center;
 }
 .nav .logo .subheader {
-  opacity: 0.7;
   font-size: 0.9rem;
-  color: white;
+  color: $white;
 }
 .nav .nav-content {
   font-size: 1rem;

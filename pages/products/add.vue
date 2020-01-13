@@ -28,8 +28,8 @@ export default {
       price: 600,
       filePath: {},
       labels: [
-        { title: 'Nome', name: 'name', type: 'text', placeholder: 'Super produto', required: false },
-        { title: 'Preço', name: 'price', type: 'number', placeholder: '99.99', required: false },
+        { title: 'Nome', name: 'name', type: 'text', placeholder: 'Super produto', required: true },
+        { title: 'Preço', name: 'price', type: 'number', placeholder: '99.99', required: true },
         { title: 'Descrição', name: 'description', type: 'text-area', placeholder: 'Super descrição', required: false },
         { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false }
       ]

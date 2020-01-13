@@ -38,9 +38,6 @@ export default {
 <style scoped lang="scss">
 .product-container{
   padding: 1rem;
-  .product-price {
-    color: $product-price;
-  }
   .product-image-container{
     max-width: 200px;
     .product-image{
