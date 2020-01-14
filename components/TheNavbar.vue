@@ -83,7 +83,7 @@ margin-bottom: 40px;
     align-items: center;
     width: 100%;
     padding: 1rem;
-    background-color: $pink;
+    background-color: $dark-pink;
   }
   .bottom-side {
     display: flex;

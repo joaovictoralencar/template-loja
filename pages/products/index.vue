@@ -1,12 +1,10 @@
 <template>
   <section class="links">
-    <nuxt-link
+    <product-view
       v-for="product in products"
       :key="product.id"
-      :to="{ name: 'products-id', params: { id: product.id } }"
-    >
-      <product-view :product="product" />
-    </nuxt-link>
+      :product="product"
+    />
   </section>
 </template>
 

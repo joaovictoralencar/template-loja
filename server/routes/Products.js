@@ -62,8 +62,8 @@ products.get('/:id', (req, res) => {
   })
 })
 
-products.patch('/:id/edit', (req, res) => {
-  const productId = req.params.id
+products.patch('/edit', (req, res) => {
+  const productId = req.body.id
   const name = req.body.name
   const description = req.body.description
   const price = req.body.price
@@ -82,6 +82,19 @@ products.patch('/:id/edit', (req, res) => {
       res.status(200).send('Preço alterado: ' + price)
     })
   }
+})
+
+products.delete('/delete', (req, res) => {
+  const productId = req.body.id
+  Product.findOne({
+    where: {
+      id: productId
+    }
+  }).then((product) => {
+    const productName = product.name
+    product.destroy()
+    res.status(200).send(productName + ' foi removido')
+  })
 })
 
 module.exports = products

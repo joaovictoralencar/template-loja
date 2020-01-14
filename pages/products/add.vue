@@ -10,19 +10,25 @@
       @description-listener="updateDescription"
       @filePath-listener="updateFilePath"
     />
+    <FeedbackModal v-if="showModal" :message="feedBackMessage" :color="feedBackColor" />
   </section>
 </template>
 
 <script>
 /* eslint-disable no-console */
 import Form from '~/components/Form.vue'
+import FeedbackModal from '~/components/FeedbackModal.vue'
 
 export default {
   components: {
-    Form
+    Form,
+    FeedbackModal
   },
   data () {
     return {
+      showModal: false,
+      message: '',
+      color: '',
       name: 'produto',
       description: 'mt bom',
       price: 600,
@@ -35,22 +41,35 @@ export default {
       ]
     }
   },
+  computed: {
+    feedBackMessage () {
+      return this.message
+    },
+    feedBackColor () {
+      return this.color
+    }
+  },
   methods: {
     async registration () {
       try {
-        console.log(this.filePath)
         const formData = new FormData()
         formData.append('filePath', this.filePath)
         formData.append('name', this.name)
         formData.append('price', this.price)
         formData.append('description', this.description)
         await this.$axios.post('api/products/register', formData)
+        this.showModal = true
+        this.message = name + ' foi adicionado com sucesso!'
+        this.color = 'green'
         this.name = ''
         this.description = ''
         this.price = 0
         this.filePath = {}
       } catch (e) {
         console.error(e.response.data.message)
+        this.showModal = true
+        this.color = 'green'
+        this.message = 'Algo deu errado'
       }
     },
     updateName (e) {
