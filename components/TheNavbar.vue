@@ -36,9 +36,6 @@
           <nuxt-link to="/products/add">
             Adicionar produto
           </nuxt-link>
-          <nuxt-link to="/products/edit">
-            Editar/Remover produto
-          </nuxt-link>
         </div>
       </div>
       <div v-if="$auth.loggedIn" class="dropdown">

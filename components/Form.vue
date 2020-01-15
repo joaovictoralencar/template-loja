@@ -7,7 +7,7 @@
       <div v-for="label in labels" :key="label.name" :class="label.type" class="input-label">
         <label :ref="label.title" :for="label.name" :class="label.type" class="input-title">
           {{ label.title || label.name }}:
-          <div id="fileName" v-if="label.type === 'file'" :ref="label.type+'Name'"><p>Nenhuma imagem selecionada</p></div>
+          <div id="fileName" v-if="label.type === 'file'" :ref="label.type+'Name'"><p>{{ label.inputPlaceholder }}</p></div>
           <label :for="label.name" v-if="label.type === 'file'" class="input-file-button">
             Selecionar imagem
           </label>
@@ -169,7 +169,6 @@ h1 {
       &.file {
         display: flex;
         cursor: pointer;
-        max-height: 30px;
       }
     }
     input:focus {
@@ -181,11 +180,11 @@ h1 {
       min-height: 30px;
       background-image: linear-gradient(.25turn, $pink, $purple);
       cursor: pointer;
-      float: right;
-      padding: 0.1rem 1rem;
-      margin: -6px -17px 0px 0px;
       border-radius: 10px;
       color: $white;
+      position: relative;
+      bottom: 5px;
+      padding: 0.1rem 0.5rem;
     }
     .input-text-area{
       font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',

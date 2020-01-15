@@ -1,50 +1,78 @@
 <template>
-  <section class="links">
-    <product-view
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      :edit="true"
-      @editProduct="editProduct(product)"
-      @removeProduct="removeProduct(product)"
+  <section class="container">
+    <Form
+      :labels="labels"
+      :submitFunction="editProduct"
+      :formTitle="'Adicione seu produto'"
+      :submitText="'Adicionar'"
+      @name-listener="updateName"
+      @price-listener="updatePrice"
+      @description-listener="updateDescription"
+      @filePath-listener="updateFilePath"
     />
+    <FeedbackModal v-if="showModal" :message="feedBackMessage" :color="feedBackColor" />
   </section>
 </template>
 
 <script>
-import ProductView from '~/components/ProductView.vue'
+/* eslint-disable no-console */
+import Form from '~/components/Form.vue'
+import FeedbackModal from '~/components/FeedbackModal.vue'
 
 export default {
-  head () {
+  components: {
+    Form,
+    FeedbackModal
+  },
+  data () {
     return {
-      title: 'Todos os nosso Produtos',
-      meta: [
-        { name: 'twitter:title', content: 'Nuxt Fundamentals by Vue School' },
-        { name: 'twitter:description', content: 'Nuxt + Vue School = 🍕' },
-        { name: 'twitter:image', content: 'https://i.imgur.com/UYP2umJ.png' },
-        { name: 'twitter:card', content: 'summary_large_image' }
+      showModal: false,
+      message: '',
+      color: '',
+      name: 'produto',
+      description: 'mt bom',
+      price: 600,
+      filePath: {},
+      labels: [
+        { title: 'Nome', name: 'name', type: 'text', required: true },
+        { title: 'Preço', name: 'price', type: 'number', required: true },
+        { title: 'Descrição', name: 'description', type: 'text-area', required: false },
+        { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false }
       ]
     }
   },
-  components: {
-    ProductView
-  },
   computed: {
-    products () {
-      return this.$store.state.products.all
+    feedBackMessage () {
+      return this.message
+    },
+    feedBackColor () {
+      return this.color
+    },
+    productId () {
+      return this.$route.params.productId
     }
   },
-  async fetch ({ store }) {
-    // dispatch action fetchAllProducts
-    await store.dispatch('products/fetchAllProducts')
-  },
   methods: {
-    async removeProduct (product) {
+    async editProduct () {
       try {
-        await this.$axios.delete('api/products/delete', { data: { id: product.id } })
+        const formData = new FormData()
+        formData.append('filePath', this.filePath)
+        formData.append('name', this.name)
+        formData.append('price', this.price)
+        formData.append('description', this.description)
+        await this.$axios.post('api/products/register', formData)
+        this.showModal = true
+        this.message = name + ' foi adicionado com sucesso!'
+        this.color = 'green'
+        this.name = ''
+        this.description = ''
+        this.price = 0
+        this.filePath = {}
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.error(e.response.data.message)
+        this.showModal = true
+        this.color = 'green'
+        this.message = 'Algo deu errado'
       }
     },
     async editProduct (product) {
@@ -54,16 +82,43 @@ export default {
       //   // eslint-disable-next-line no-console
       //   console.error(e.response.data.message)
       // }
+    },
+    updateName (e) {
+      this.name = e
+    },
+    updatePrice (e) {
+      this.price = e
+    },
+    updateDescription (e) {
+      this.description = e
+    },
+    updateFilePath (e) {
+      this.filePath = e
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.links {
-  padding-top: 15px;
+<style scoped lang="scss">
+.form{
+  padding: 50px;
+  margin: 30px 0;
+  border-radius: 5px;
+  width: 332px;
+}
+.form,
+.container-form, .login, .signin {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+.input-label{
+  height: 30px;
+  margin: 10px 0;
+  width: 100%;
+}
+.button--grey {
+  margin: 0 0 10px 0;
 }
 </style>

@@ -4,7 +4,18 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-    />
+    >
+      <template v-slot:bottomButtons>
+        <section class="btn-controller">
+          <button @click="editProduct(product)" class="btn editar">
+            Editar
+          </button>
+          <button @click="removeProduct(product)" class="btn remover">
+            Remover
+          </button>
+        </section>
+      </template>
+    </product-view>
   </section>
 </template>
 
@@ -34,6 +45,25 @@ export default {
   async fetch ({ store }) {
     // dispatch action fetchAllProducts
     await store.dispatch('products/fetchAllProducts')
+  },
+  methods: {
+    async removeProduct (product) {
+      try {
+        await this.$axios.delete('api/products/delete', { data: { id: product.id } })
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e.response.data.message)
+      }
+    },
+    editProduct (product) {
+      this.$router.push({ path: '/products/edit', params: { productId: product.id } })
+      // try {
+      //   await this.$axios.patch('api/products/delete', { data: { id: product.id } })
+      // } catch (e) {
+      //   // eslint-disable-next-line no-console
+      //   console.error(e.response.data.message)
+      // }
+    }
   }
 }
 </script>
@@ -45,4 +75,11 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
+.btn-controller{
+    width: 100%;
+    .editar, .remover {
+        width: 46%;
+        padding: 0.8rem;
+      }
+  }
 </style>

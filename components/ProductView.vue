@@ -15,15 +15,7 @@
         </nuxt-link>
         <!-- <figcaption>{{ product.name }}</figcaption> -->
       </figure>
-      <!-- Transformar isso num slot -->
-      <section v-if="edit" class="btn-controller">
-        <button @click="$emit('editProduct',product)" class="btn editar">
-          Editar
-        </button>
-        <button @click="$emit('removeProduct',product)" class="btn remover">
-          Remover
-        </button>
-      </section>
+      <slot name="bottomButtons" />
     </article>
   </section>
 </template>
@@ -43,11 +35,6 @@ export default {
           createdAt: Date.now()
         }
       }
-    },
-    edit: {
-      type: Boolean,
-      required: false,
-      default: false
     }
   }
 }
@@ -66,14 +53,6 @@ export default {
       width: 100%;
     }
   }
-  .btn-controller{
-    width: 100%;
-    .editar, .remover {
-        width: 46%;
-        padding: 0.8rem;
-      }
-  }
-
 }
 
 </style>
