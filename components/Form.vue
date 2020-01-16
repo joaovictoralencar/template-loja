@@ -78,9 +78,19 @@ export default {
       uploadedImage: null
     }
   },
+  mounted () {
+    this.labels.forEach((label) => {
+      if (label.type !== 'file') { this.$refs[label.name][0].value = label.value } else {
+        this.$refs.fileName[0].textContent = label.value.replace('/images/products/', '')
+        this.$refs[label.name + 'Img'][0].src = label.value
+      }
+    })
+  },
   methods: {
     showInfo (event, labelName, labelType) {
-      if (labelType !== 'file') { this.$emit(labelName + '-listener', event.target.value) } else {
+      if (labelType !== 'file') {
+        this.$emit(labelName + '-listener', event.target.value)
+      } else {
         const file = this.$refs[labelName][0].files[0]
         this.$emit(labelName + '-listener', file)
         this.fileName = file.name

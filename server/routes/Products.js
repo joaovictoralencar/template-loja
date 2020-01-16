@@ -62,11 +62,16 @@ products.get('/:id', (req, res) => {
   })
 })
 
-products.patch('/edit', (req, res) => {
-  const productId = req.body.id
+products.patch('/edit', multer({ storage }).single('filePath'), (req, res) => {
+  const productId = req.body.productId
   const name = req.body.name
   const description = req.body.description
   const price = req.body.price
+  let filePath
+  if (req.file) {
+    const path = req.file.destination.replace('static/', '/')
+    filePath = `${path}/${req.file.filename}`
+  }
   if (name) {
     Product.update({ name }, { where: { id: productId } }).then(() => {
       res.status(200).send('Nome alterado: ' + name)
@@ -80,6 +85,11 @@ products.patch('/edit', (req, res) => {
   if (price) {
     Product.update({ price }, { where: { id: productId } }).then(() => {
       res.status(200).send('Preço alterado: ' + price)
+    })
+  }
+  if (filePath) {
+    Product.update({ filePath }, { where: { id: productId } }).then(() => {
+      res.status(200).send('Imagem alterada: ' + filePath)
     })
   }
 })

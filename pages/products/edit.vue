@@ -32,7 +32,7 @@ export default {
       name: 'produto',
       description: 'mt bom',
       price: 600,
-      filePath: {}
+      filePath: 'produto.jpg'
     }
   },
   computed: {
@@ -43,36 +43,40 @@ export default {
       return this.color
     },
     productId () {
-      return this.$route.params.productId
+      return this.$route.params.productId || this.$cookies.get('edit-productId')
     },
     product () {
       return this.$store.state.products.all.find(product => product.id === Number(this.productId))
     },
     labels () {
       return [
-        { title: 'Nome', name: 'name', type: 'text', required: false, value: 'this.product.name' },
-        { title: 'Preço', name: 'price', type: 'number', required: false, value: 'this.product.price' },
-        { title: 'Descrição', name: 'description', type: 'text-area', required: false, value: 'this.product.description' },
-        { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false, value: 'this.product.filePath' }
+        { title: 'Nome', name: 'name', type: 'text', required: false, value: this.product.name },
+        { title: 'Preço', name: 'price', type: 'number', required: false, value: this.product.price },
+        { title: 'Descrição', name: 'description', type: 'text-area', required: false, value: this.product.description },
+        { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false, value: this.product.filePath }
       ]
     }
   },
-  created () {
-    if (!this.product) {
-      this.$router.push({ name: 'products' }) // salvar nos cookies qual é o id q o usuário ta editando
+  mounted () {
+    const idCookie = this.$cookies.get('edit-productId')
+    if (!idCookie || idCookie !== this.productId) {
+      this.$cookies.set('edit-productId', this.productId.toString(), {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7
+      })
     }
   },
   methods: {
-    async editProduct () {
+    async editProduct (product) {
       try {
         const formData = new FormData()
         formData.append('filePath', this.filePath)
         formData.append('name', this.name)
         formData.append('price', this.price)
         formData.append('description', this.description)
-        await this.$axios.post('api/products/register', formData)
-        // await this.$axios.patch('api/products/delete', { data: { id: product.id } })
-        this.showModal = true
+        formData.append('productId', this.productId)
+        await this.$axios.patch('api/products/edit', formData)
+        // this.showModal = true
         this.message = name + ' foi adicionado com sucesso!'
         this.color = 'green'
         this.name = ''
