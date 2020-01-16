@@ -32,13 +32,7 @@ export default {
       name: 'produto',
       description: 'mt bom',
       price: 600,
-      filePath: {},
-      labels: [
-        { title: 'Nome', name: 'name', type: 'text', required: true },
-        { title: 'Preço', name: 'price', type: 'number', required: true },
-        { title: 'Descrição', name: 'description', type: 'text-area', required: false },
-        { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false }
-      ]
+      filePath: {}
     }
   },
   computed: {
@@ -50,6 +44,22 @@ export default {
     },
     productId () {
       return this.$route.params.productId
+    },
+    product () {
+      return this.$store.state.products.all.find(product => product.id === Number(this.productId))
+    },
+    labels () {
+      return [
+        { title: 'Nome', name: 'name', type: 'text', required: false, value: 'this.product.name' },
+        { title: 'Preço', name: 'price', type: 'number', required: false, value: 'this.product.price' },
+        { title: 'Descrição', name: 'description', type: 'text-area', required: false, value: 'this.product.description' },
+        { title: 'Imagem do Produto', name: 'filePath', type: 'file', required: false, value: 'this.product.filePath' }
+      ]
+    }
+  },
+  created () {
+    if (!this.product) {
+      this.$router.push({ name: 'products' }) // salvar nos cookies qual é o id q o usuário ta editando
     }
   },
   methods: {
@@ -61,6 +71,7 @@ export default {
         formData.append('price', this.price)
         formData.append('description', this.description)
         await this.$axios.post('api/products/register', formData)
+        // await this.$axios.patch('api/products/delete', { data: { id: product.id } })
         this.showModal = true
         this.message = name + ' foi adicionado com sucesso!'
         this.color = 'green'
@@ -75,14 +86,14 @@ export default {
         this.message = 'Algo deu errado'
       }
     },
-    async editProduct (product) {
-      // try {
-      //   await this.$axios.patch('api/products/delete', { data: { id: product.id } })
-      // } catch (e) {
-      //   // eslint-disable-next-line no-console
-      //   console.error(e.response.data.message)
-      // }
-    },
+    // async editProduct (product) {
+    //   try {
+    //     await this.$axios.patch('api/products/delete', { data: { id: product.id } })
+    //   } catch (e) {
+    //     // eslint-disable-next-line no-console
+    //     console.error(e.response.data.message)
+    //   }
+    // },
     updateName (e) {
       this.name = e
     },

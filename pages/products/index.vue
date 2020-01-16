@@ -56,13 +56,7 @@ export default {
       }
     },
     editProduct (product) {
-      this.$router.push({ path: '/products/edit', params: { productId: product.id } })
-      // try {
-      //   await this.$axios.patch('api/products/delete', { data: { id: product.id } })
-      // } catch (e) {
-      //   // eslint-disable-next-line no-console
-      //   console.error(e.response.data.message)
-      // }
+      this.$router.push({ name: 'products-edit', params: { productId: product.id } })
     }
   }
 }
