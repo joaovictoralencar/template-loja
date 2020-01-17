@@ -10,7 +10,7 @@
       @description-listener="updateDescription"
       @filePath-listener="updateFilePath"
     />
-    <FeedbackModal v-if="showModal" :message="feedBackMessage" :color="feedBackColor" />
+    <FeedbackModal v-if="showModal" :message="feedBackMessage" :color="feedBackColor" :closeFunction="closeModal" />
   </section>
 </template>
 
@@ -50,6 +50,9 @@ export default {
     }
   },
   methods: {
+    closeModal () {
+      this.showModal = false
+    },
     async registration () {
       try {
         const formData = new FormData()
@@ -59,12 +62,13 @@ export default {
         formData.append('description', this.description)
         await this.$axios.post('api/products/register', formData)
         this.showModal = true
-        this.message = name + ' foi adicionado com sucesso!'
+        this.message = this.name + ' foi adicionado com sucesso!'
         this.color = 'green'
         this.name = ''
         this.description = ''
         this.price = 0
         this.filePath = {}
+        this.$router.push({ name: 'products' })
       } catch (e) {
         console.error(e.response.data.message)
         this.showModal = true

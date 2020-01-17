@@ -71,9 +71,13 @@ export default {
 }
 .btn-controller{
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .editar, .remover {
-        width: 46%;
         padding: 0.8rem;
+        margin: 0 0.1rem;
+        width: 80px;
       }
   }
 </style>

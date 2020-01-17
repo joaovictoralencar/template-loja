@@ -89,9 +89,11 @@ export default {
   },
   mounted () {
     this.labels.forEach((label) => {
-      if (label.type !== 'file') { this.$refs[label.name][0].value = label.value } else {
-        this.$refs.fileName[0].textContent = label.value.replace('/images/products/', '')
-        this.$refs[label.name + 'Img'][0].src = label.value
+      if (label.value) {
+        if (label.type !== 'file') { this.$refs[label.name][0].value = label.value } else {
+          this.$refs.fileName[0].textContent = label.value.replace('/images/products/', '')
+          this.$refs[label.name + 'Img'][0].src = label.value
+        }
       }
     })
   },

@@ -4,14 +4,14 @@
       :labels="labels"
       :submitFunction="editProduct"
       :formTitle="'Adicione seu produto'"
-      :submitText="'Adicionar'"
+      :submitText="'Confirmar'"
       :product="product"
       @name-listener="updateName"
       @price-listener="updatePrice"
       @description-listener="updateDescription"
       @filePath-listener="updateFilePath"
     />
-    <FeedbackModal v-if="showModal" :message="feedBackMessage" :color="feedBackColor" />
+    <FeedbackModal v-if="showModal" :closeFunction="closeModal" :message="feedBackMessage" :color="feedBackColor" />
   </section>
 </template>
 
@@ -72,6 +72,9 @@ export default {
     }
   },
   methods: {
+    closeModal () {
+      this.showModal = false
+    },
     async editProduct (product) {
       try {
         const formData = new FormData()
@@ -81,13 +84,14 @@ export default {
         formData.append('description', this.description)
         formData.append('productId', this.productId)
         await this.$axios.patch('api/products/edit', formData)
-        // this.showModal = true
-        this.message = name + ' foi adicionado com sucesso!'
+        this.showModal = true
+        this.message = this.name + ' foi editado com sucesso!'
         this.color = 'green'
         this.name = ''
         this.description = ''
         this.price = 0
         this.filePath = {}
+        this.$router.push({ name: 'products' })
       } catch (e) {
         console.error(e.response.data.message)
         this.showModal = true
