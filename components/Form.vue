@@ -25,6 +25,7 @@
           :placeholder="label.placeholder || ''"
           :required="label.required || false"
           :ref="label.name"
+          :value="label.value"
         >
         <textarea
           v-else
@@ -39,6 +40,7 @@
           :placeholder="label.placeholder || ''"
           :required="label.required || false"
           :ref="label.name"
+          :value="label.value"
         />
         <img v-if="label.type ==='file'" :ref="label.name+'Img'" :alt="fileName" class="uploaded-image">
       </div>
@@ -70,6 +72,13 @@ export default {
       type: String,
       required: false,
       default: 'Enviar'
+    },
+    product: {
+      type: Object,
+      required: false,
+      default () {
+        return {}
+      }
     }
   },
   data () {

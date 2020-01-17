@@ -5,6 +5,7 @@
       :submitFunction="editProduct"
       :formTitle="'Adicione seu produto'"
       :submitText="'Adicionar'"
+      :product="product"
       @name-listener="updateName"
       @price-listener="updatePrice"
       @description-listener="updateDescription"
@@ -57,6 +58,10 @@ export default {
       ]
     }
   },
+  async fetch ({ store, params }) {
+    await store.dispatch('products/fetchAllProducts')
+    if (params.id) { await store.dispatch('products/fetchProduct', params.id) }
+  },
   mounted () {
     const idCookie = this.$cookies.get('edit-productId')
     if (!idCookie || idCookie !== this.productId) {
@@ -90,14 +95,6 @@ export default {
         this.message = 'Algo deu errado'
       }
     },
-    // async editProduct (product) {
-    //   try {
-    //     await this.$axios.patch('api/products/delete', { data: { id: product.id } })
-    //   } catch (e) {
-    //     // eslint-disable-next-line no-console
-    //     console.error(e.response.data.message)
-    //   }
-    // },
     updateName (e) {
       this.name = e
     },
