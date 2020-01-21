@@ -65,30 +65,17 @@ a:hover {
 h1,h2,h3,h4 {
   color: $pink;
 }
-
+.logo {
+  &.big {
+    width: 400px;
+  }
+  &.header {
+    width: 100px;
+  }
+}
 .product-image {
   max-width: 600px;
   max-height: 600px;
-}
-
-/* -----
-SVG Icons - svgicons.sparkk.fr
------ */
-
-.svg-icon {
-  width: 1em;
-  height: 1em;
-}
-
-.svg-icon path,
-.svg-icon polygon,
-.svg-icon rect {
-  fill: #4691f6;
-}
-
-.svg-icon circle {
-  stroke: #4691f6;
-  stroke-width: 1;
 }
 
 .product-price {

@@ -1,8 +1,8 @@
 <template>
   <section class="container">
-    <logo />
+    <logo class="logo big" />
     <h1 class="title">
-      Market Makeup
+      Love and Makeup
     </h1>
     <h2 class="subtitle">
       Conheça nossos produtos
@@ -30,7 +30,6 @@ export default {
   },
   head () {
     return {
-      title: 'Home Page 🍕',
       meta: [
         { name: 'twitter:title', content: 'Nuxt Fundamentals by Vue School' },
         { name: 'twitter:description', content: 'Nuxt + Vue School = 🍕' },

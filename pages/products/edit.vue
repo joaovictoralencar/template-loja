@@ -74,6 +74,7 @@ export default {
   methods: {
     closeModal () {
       this.showModal = false
+      this.$router.push({ name: 'products' })
     },
     async editProduct (product) {
       try {
@@ -87,15 +88,10 @@ export default {
         this.showModal = true
         this.message = this.name + ' foi editado com sucesso!'
         this.color = 'green'
-        this.name = ''
-        this.description = ''
-        this.price = 0
-        this.filePath = {}
-        this.$router.push({ name: 'products' })
       } catch (e) {
         console.error(e.response.data.message)
         this.showModal = true
-        this.color = 'green'
+        this.color = 'red'
         this.message = 'Algo deu errado'
       }
     },

@@ -50,6 +50,7 @@ export default {
     async removeProduct (product) {
       try {
         await this.$axios.delete('api/products/delete', { data: { id: product.id } })
+        this.$router.go({ name: 'products' })
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e.response.data.message)

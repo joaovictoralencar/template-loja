@@ -10,7 +10,7 @@ import TheNavbar from '@/components/TheNavbar'
 export default {
   head () {
     return {
-      title: 'Market Makeup'
+      title: 'Love and Makeup'
     }
   },
   components: {

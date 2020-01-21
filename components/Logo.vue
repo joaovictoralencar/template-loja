@@ -4,7 +4,6 @@
 <style lang="scss" scoped>
 .NuxtLogo {
   animation: 1s appear;
-  max-width: 500px;
 }
 
 @keyframes appear {

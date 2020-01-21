@@ -1,11 +1,14 @@
 <template>
   <nav class="nav">
     <div class="top-side">
-      <div class="logo">
+      <div class="logo-container">
         <nuxt-link :to="{ name: 'index' }" class="logo text-lg">
-          Makeup Market
+          <Logo class="logo header" />
         </nuxt-link>
-        <span class="subheader">O importante é se sentir bem</span>
+        <!-- <span class="subheader">O importante é se sentir bem</span> -->
+      </div>
+      <div>
+        <SearchBar />
       </div>
       <div v-if="$auth">
         <nuxt-link
@@ -57,10 +60,21 @@
 </template>
 
 <script>
+import Logo from '~/components/Logo.vue'
+import SearchBar from '~/components/SearchBar.vue'
+
 export default {
+  components: {
+    Logo,
+    SearchBar
+  },
   methods: {
     logout () {
       this.$auth.logout()
+    },
+    goToHome () {
+      alert('aaaaaaaaaaa')
+      this.$router.push({ path: '/' })
     }
   }
 }
@@ -80,7 +94,7 @@ margin-bottom: 40px;
     align-items: center;
     width: 100%;
     padding: 1rem;
-    background-color: $dark-pink;
+    background-color: $white;
   }
   .bottom-side {
     display: flex;
@@ -90,14 +104,31 @@ margin-bottom: 40px;
     background-color: $purple;
   }
 }
-.nav .logo {
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  flex-direction: column;
+  .logo{
+    width: 100px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
+
+.login{
+  color: $dark-pink !important;
+}
+.nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.nav .logo .subheader {
+.nav .subheader {
   font-size: 0.9rem;
-  color: $white;
+  color: $grey-text;
 }
 .nav .nav-content {
   font-size: 1rem;
@@ -136,7 +167,7 @@ margin-bottom: 40px;
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: $main-bg-color;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
