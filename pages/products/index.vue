@@ -50,6 +50,7 @@ export default {
     async removeProduct (product) {
       try {
         await this.$axios.delete('api/products/delete', { data: { id: product.id } })
+        this.$router.go({ name: 'products' })
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e.response.data.message)
@@ -71,9 +72,13 @@ export default {
 }
 .btn-controller{
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .editar, .remover {
-        width: 46%;
         padding: 0.8rem;
+        margin: 0 0.1rem;
+        width: 80px;
       }
   }
 </style>

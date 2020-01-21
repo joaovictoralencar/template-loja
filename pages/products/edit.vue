@@ -4,13 +4,14 @@
       :labels="labels"
       :submitFunction="editProduct"
       :formTitle="'Adicione seu produto'"
-      :submitText="'Adicionar'"
+      :submitText="'Confirmar'"
+      :product="product"
       @name-listener="updateName"
       @price-listener="updatePrice"
       @description-listener="updateDescription"
       @filePath-listener="updateFilePath"
     />
-    <FeedbackModal v-if="showModal" :message="feedBackMessage" :color="feedBackColor" />
+    <FeedbackModal v-if="showModal" :closeFunction="closeModal" :message="feedBackMessage" :color="feedBackColor" />
   </section>
 </template>
 
@@ -57,6 +58,10 @@ export default {
       ]
     }
   },
+  async fetch ({ store, params }) {
+    await store.dispatch('products/fetchAllProducts')
+    if (params.id) { await store.dispatch('products/fetchProduct', params.id) }
+  },
   mounted () {
     const idCookie = this.$cookies.get('edit-productId')
     if (!idCookie || idCookie !== this.productId) {
@@ -67,6 +72,10 @@ export default {
     }
   },
   methods: {
+    closeModal () {
+      this.showModal = false
+      this.$router.push({ name: 'products' })
+    },
     async editProduct (product) {
       try {
         const formData = new FormData()
@@ -76,28 +85,16 @@ export default {
         formData.append('description', this.description)
         formData.append('productId', this.productId)
         await this.$axios.patch('api/products/edit', formData)
-        // this.showModal = true
-        this.message = name + ' foi adicionado com sucesso!'
+        this.showModal = true
+        this.message = this.name + ' foi editado com sucesso!'
         this.color = 'green'
-        this.name = ''
-        this.description = ''
-        this.price = 0
-        this.filePath = {}
       } catch (e) {
         console.error(e.response.data.message)
         this.showModal = true
-        this.color = 'green'
+        this.color = 'red'
         this.message = 'Algo deu errado'
       }
     },
-    // async editProduct (product) {
-    //   try {
-    //     await this.$axios.patch('api/products/delete', { data: { id: product.id } })
-    //   } catch (e) {
-    //     // eslint-disable-next-line no-console
-    //     console.error(e.response.data.message)
-    //   }
-    // },
     updateName (e) {
       this.name = e
     },

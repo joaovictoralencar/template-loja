@@ -48,7 +48,13 @@ export default {
   flex-direction: column;
   align-items: center;
   .product-image-container{
-    max-width: 200px;
+    margin: 1rem;
+    width: 200px;
+    height: 200px;
+    background-color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .product-image{
       width: 100%;
     }

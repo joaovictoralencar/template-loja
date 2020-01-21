@@ -2,13 +2,17 @@
   <div class="modal-mask">
     <!-- ESTUDAR SOBRE SLOTS -->
     <section class="modal-container">
-      <header :style="{ backgroundColor: color}" class="modal-header">
-        >
+      <header class="modal-header">
         <h2>{{ title }}</h2>
       </header>
       <article class="modal-content">
-        <p>{{ message }}</p>
+        <p :style="{ color: color}">
+          {{ message }}
+        </p>
       </article>
+      <button @click="close" class="btn close">
+        Fechar
+      </button>
     </section>
   </div>
 </template>
@@ -30,6 +34,20 @@ export default {
       type: String,
       default: '#000',
       required: false
+    },
+    closeFunction: {
+      type: Function,
+      required: true,
+      default () {
+        alert('give me a function')
+      }
+    }
+  },
+  methods: {
+    close () {
+      if (this.closeFunction) {
+        this.closeFunction()
+      } else { alert('give me a functioaaaaan') }
     }
   }
 }
@@ -46,22 +64,27 @@ export default {
   background-color: rgba(0, 0, 0, .5);
   display: table;
   transition: opacity .3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   .modal-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    background-color: $white;
+    border: 5px solid #ccc;
+    border-radius: 10px;
     min-width: 300px;
+    padding: 1rem 0;
     .modal-header{
       border-bottom: $pink;
-      height: 50px;
+      padding: 1rem 0;
     }
     .modal-content {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      height: 100px;
+      min-height: 100px;
+      padding: 1rem 0;
     }
   }
 }
