@@ -79,7 +79,7 @@ margin-bottom: 40px;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem 0.8rem;
     background-color: $dark-pink;
   }
   .bottom-side {
@@ -87,7 +87,7 @@ margin-bottom: 40px;
     align-items: center;
     width: 100%;
     padding: 0.5rem;
-    background-color: $purple;
+    background-color: $dark-pink;
   }
 }
 .nav .logo {
@@ -127,7 +127,6 @@ margin-bottom: 40px;
   border: none;
   outline: none;
   color: white;
-  padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
