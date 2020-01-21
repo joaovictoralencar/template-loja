@@ -1,6 +1,5 @@
 <template>
   <section class="container">
-    <logo class="logo big" />
     <h1 class="title">
       Love and Makeup
     </h1>
@@ -20,12 +19,10 @@
 <script>
 /* eslint-disable no-console */
 
-import Logo from '~/components/Logo.vue'
 import ProductView from '~/components/ProductView.vue'
 
 export default {
   components: {
-    Logo,
     ProductView
   },
   head () {

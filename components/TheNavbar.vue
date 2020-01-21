@@ -3,28 +3,14 @@
     <div class="top-side">
       <div class="logo-container">
         <nuxt-link :to="{ name: 'index' }" class="logo text-lg">
-          <Logo class="logo header" />
+          <logo class="logo header" />
         </nuxt-link>
         <!-- <span class="subheader">O importante é se sentir bem</span> -->
       </div>
       <div>
         <SearchBar />
       </div>
-      <div v-if="$auth">
-        <nuxt-link
-          v-if="!$auth.loggedIn"
-          :to="{ name: 'login' }"
-          class="login text-xs"
-        >
-          Você ainda não está logado(a). Por favor, faça login.
-        </nuxt-link>
-        <div v-else>
-          <p>Olá, {{ $auth.user.username }}</p>
-          <button @click="logout" class="button--grey text-base">
-            Logout
-          </button>
-        </div>
-      </div>
+      <dropdown-login v-if="$auth" class="dropdown-login" />
     </div>
     <div class="bottom-side">
       <div class="dropdown">
@@ -62,16 +48,15 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import SearchBar from '~/components/SearchBar.vue'
+import DropdownLogin from '~/components/DropdownLogin.vue'
 
 export default {
   components: {
     Logo,
-    SearchBar
+    SearchBar,
+    DropdownLogin
   },
   methods: {
-    logout () {
-      this.$auth.logout()
-    },
     goToHome () {
       alert('aaaaaaaaaaa')
       this.$router.push({ path: '/' })
@@ -90,11 +75,10 @@ margin-bottom: 40px;
   width: 100%;
   .top-side {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
     padding: 0.5rem 0.8rem;
-    padding: 1rem;
     background-color: $white;
   }
   .bottom-side {
@@ -112,15 +96,11 @@ margin-bottom: 40px;
   float: left;
   flex-direction: column;
   .logo{
-    width: 100px;
+    width: 150px;
     &:hover{
       cursor: pointer;
     }
   }
-}
-
-.login{
-  color: $dark-pink !important;
 }
 .nav {
   display: flex;

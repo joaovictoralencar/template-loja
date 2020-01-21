@@ -14,12 +14,13 @@ export default {
 .search-input-container {
     margin: 1rem;
     .search-input {
-        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-        width: 300px;
-        border-color: $grey-text-light;
-        border: solid 1px;
-        outline: 0;
-        border-radius: 8px;
+      padding: 0.5rem 0.8rem;
+      width: 300px;
+      border: solid 1.5px;
+      border-color: $dark-pink;
+      outline: 0;
+      font-size: 16px;
+      border-radius: 20px;
     }
 }
 
