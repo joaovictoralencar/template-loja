@@ -1,16 +1,33 @@
 <template>
   <nav class="nav">
     <div class="top-side">
-      <div class="logo-container">
+      <div class="logo-container navbar-item">
         <nuxt-link :to="{ name: 'index' }" class="logo text-lg">
           <logo class="logo header" />
         </nuxt-link>
-        <!-- <span class="subheader">O importante é se sentir bem</span> -->
       </div>
-      <div>
-        <SearchBar />
+      <SearchBar class="search-bar navbar-item" />
+      <dropdown-login v-if="$auth" class="dropdown-login navbar-item" />
+      <div class="navbar-item cart">
+        <svg
+          id="Capa_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          x="0px"
+          y="0px"
+          viewBox="0 0 489 489"
+          style="enable-background:new 0 0 489 489;"
+          xml:space="preserve"
+          width="25px"
+          height="25px"
+        ><g><g>
+          <path d="M440.1,422.7l-28-315.3c-0.6-7-6.5-12.3-13.4-12.3h-57.6C340.3,42.5,297.3,0,244.5,0s-95.8,42.5-96.6,95.1H90.3   c-7,0-12.8,5.3-13.4,12.3l-28,315.3c0,0.4-0.1,0.8-0.1,1.2c0,35.9,32.9,65.1,73.4,65.1h244.6c40.5,0,73.4-29.2,73.4-65.1   C440.2,423.5,440.2,423.1,440.1,422.7z M244.5,27c37.9,0,68.8,30.4,69.6,68.1H174.9C175.7,57.4,206.6,27,244.5,27z M366.8,462   H122.2c-25.4,0-46-16.8-46.4-37.5l26.8-302.3h45.2v41c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h139.3v41   c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#CF308A" />
+        </g></g> </svg>
+        <div class="cart-number">
+          1
+        </div>
       </div>
-      <dropdown-login v-if="$auth" class="dropdown-login" />
     </div>
     <div class="bottom-side">
       <div class="dropdown">
@@ -58,7 +75,6 @@ export default {
   },
   methods: {
     goToHome () {
-      alert('aaaaaaaaaaa')
       this.$router.push({ path: '/' })
     }
   }
@@ -67,25 +83,29 @@ export default {
 
 <style scoped lang="scss">
 nav {
-margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 40px;
   font-weight: lighter;
   letter-spacing: 0.5px;
-  /* position: fixed;
-  top: 0; */
   width: 100%;
   .top-side {
+    padding: 0 5rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0.5rem 0.8rem;
     background-color: $white;
+    .navbar-item {
+      margin: 0.5rem;
+    }
   }
   .bottom-side {
+    padding: 0 5rem;
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 0.5rem;
     background-color: $dark-pink;
   }
 }
@@ -102,11 +122,27 @@ margin-bottom: 40px;
     }
   }
 }
-.nav {
+.cart {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  .cart-number{
+    background-color: black;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    position: relative;
+    bottom: -10px;
+    left: -12px;
+  }
 }
+
 .nav .subheader {
   font-size: 0.9rem;
   color: $grey-text;
@@ -135,6 +171,7 @@ margin-bottom: 40px;
 }
 
 .dropdown .dropbtn {
+  padding: 0.8rem;
   font-size: 16px;
   border: none;
   outline: none;
@@ -142,6 +179,10 @@ margin-bottom: 40px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
+}
+
+.dropbtn:hover {
+  background-color: black;
 }
 
 .dropdown-content {
@@ -171,5 +212,9 @@ margin-bottom: 40px;
 }
 p {
   color: white;
+}
+
+.search-bar{
+  display: flex;
 }
 </style>

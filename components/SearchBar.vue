@@ -12,10 +12,10 @@ export default {
 
 <style lang="scss" scoped>
 .search-input-container {
-    margin: 1rem;
+    flex-grow: 1;
     .search-input {
+      width: 100%;
       padding: 0.5rem 0.8rem;
-      width: 300px;
       border: solid 1.5px;
       border-color: $dark-pink;
       outline: 0;
