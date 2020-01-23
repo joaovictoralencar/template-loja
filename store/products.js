@@ -11,9 +11,6 @@ export const actions = {
     const product = await this.$axios.$get(`api/products/${id}`)
     commit('setProduct', product)
   }
-  // async nuxtServerInit ({ store }) {
-  //   await store.dispatch('products/fetchAllProducts')
-  // }
 }
 
 export const mutations = {

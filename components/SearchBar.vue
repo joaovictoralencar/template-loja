@@ -18,6 +18,7 @@ export default {
       padding: 0.5rem 0.8rem;
       border: solid 1.5px;
       border-color: $dark-pink;
+      background-color: $main-bg-color;
       outline: 0;
       font-size: 16px;
       border-radius: 20px;

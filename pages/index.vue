@@ -1,17 +1,27 @@
 <template>
   <section class="container">
-    <h1 class="title">
-      Love and Makeup
-    </h1>
-    <h2 class="subtitle">
-      Conheça nossos produtos
-    </h2>
+    <header>
+      <h1 class="title">
+        Love and Makeup
+      </h1>
+      <h2 class="subtitle">
+        Conheça nossos produtos
+      </h2>
+    </header>
     <section class="links">
       <product-view
         v-for="product in products"
         :key="product.id"
         :product="product"
-      />
+      >
+        <template v-slot:bottomButtons>
+          <section class="btn-controller">
+            <button @click="buy(product)" class="btn editar">
+              Comprar
+            </button>
+          </section>
+        </template>
+      </product-view>
     </section>
   </section>
 </template>
@@ -43,6 +53,16 @@ export default {
   async fetch ({ store }) {
     // dispatch action fetchAllProducts
     await store.dispatch('products/fetchAllProducts')
+  },
+  methods: {
+    buy (product) {
+      this.$store.commit('addToCart', product)
+      const cart = this.$store.getters.cart
+      this.$cookies.set('cart', JSON.stringify(cart), {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7
+      })
+    }
   }
 }
 </script>
@@ -53,12 +73,12 @@ export default {
   'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 60px;
   letter-spacing: 1px;
 }
 .subtitle {
   font-weight: 300;
-  font-size: 42px;
+  font-size: 36px;
   color: #526488;
   word-spacing: 5px;
 }
