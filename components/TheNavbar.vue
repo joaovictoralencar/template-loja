@@ -78,9 +78,9 @@ export default {
       return this.$store.state.cart
     }
   },
-  mounted () {
-    const ccart = this.$cookies.get('cart')
-    if (ccart) { console.log('aa', ccart) };
+  async fetch ({ store }) {
+    // dispatch action fetchCart
+    await store.dispatch('fetchCart')
   },
   methods: {
     goToHome () {
@@ -102,7 +102,6 @@ nav {
   font-weight: lighter;
   letter-spacing: 0.5px;
   width: 100%;
-  padding: 0 10rem;
   .top-side {
     display: flex;
     justify-content: space-between;

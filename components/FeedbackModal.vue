@@ -47,7 +47,7 @@ export default {
     close () {
       if (this.closeFunction) {
         this.closeFunction()
-      } else { alert('give me a functioaaaaan') }
+      } else { alert('give me a function') }
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section>
     <header>
       <h1 class="title">
         Love and Makeup
@@ -8,7 +8,7 @@
         Conheça nossos produtos
       </h2>
     </header>
-    <section class="links">
+    <section class="products">
       <product-view
         v-for="product in products"
         :key="product.id"
@@ -57,8 +57,9 @@ export default {
   methods: {
     buy (product) {
       this.$store.commit('addToCart', product)
-      const cart = this.$store.getters.cart
-      this.$cookies.set('cart', JSON.stringify(cart), {
+      const cart = this.$store.getters.getCart
+      console.log(cart)
+      this.$cookies.set('cart', cart, {
         path: '/',
         maxAge: 60 * 60 * 24 * 7
       })
@@ -67,7 +68,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
   'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -82,10 +83,12 @@ export default {
   color: #526488;
   word-spacing: 5px;
 }
-.links {
+.products{
   padding-top: 15px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row !important;
   justify-content: center;
+  flex-wrap: wrap !important;
+  align-items: center;
 }
 </style>

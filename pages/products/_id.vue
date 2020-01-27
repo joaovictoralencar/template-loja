@@ -1,5 +1,5 @@
 <template>
-  <section v-if="product" class="container product-id">
+  <section v-if="product" class="product-id">
     <article class="container">
       <header>
         <h1 class="title">

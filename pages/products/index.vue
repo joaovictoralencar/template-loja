@@ -1,5 +1,5 @@
 <template>
-  <section class="links">
+  <section class="products">
     <product-view
       v-for="product in products"
       :key="product.id"
@@ -64,11 +64,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.links {
-  padding-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.container {
+  &.products{
+    padding-top: 15px;
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center;
+    flex-wrap: wrap !important;
+    align-items: center;
+  }
 }
 .btn-controller{
     width: 100%;

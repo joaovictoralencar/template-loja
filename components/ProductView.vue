@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section>
     <article class="product-container">
       <header>
         <nuxt-link :to="{ name: 'products-id', params: { id: product.id } }">
